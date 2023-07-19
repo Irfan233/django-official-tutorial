@@ -1,6 +1,32 @@
-<h1>{{ question.question_text }}</h1>
-<ul>
-{% for choice in question.choice_set.all %}
-    <li>{{ choice.choice_text }}</li>
-{% endfor %}
-</ul>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_links %}
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+{% endblock %}
+
+{% block page_title %}
+    Question Detail
+{% endblock %}
+
+{% block page_body %}
+<header>
+    <nav><a href="{% url 'polls:index' %}">Home Page</a></nav>
+</header>
+<form action="{% url 'polls:vote' question.id %}" method="post">
+{% csrf_token %}
+<fieldset>
+    <legend><h1>{{ question.question_text }}</h1></legend>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    {% for choice in question.choice_set.all %}
+        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+    {% endfor %}
+    <a class=a href="{% url 'polls:newChoice' question.id %}">Add Choice</a>
+    <a href="{% url 'polls:editQues' question.id %}">edit Question</a>
+    <a href="{% url 'polls:deleteQues' question.id %}">delete Question</a>
+</fieldset>
+<input type="submit" value="Vote">
+<a href="{% url 'polls:reset' question.id %}">Reset?</a>
+</form>
+{% endblock %}

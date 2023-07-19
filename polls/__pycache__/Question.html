@@ -1,0 +1,9 @@
+<form action="{% url 'polls:newQuestion' question.id %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>Add new question for{{question.question_text}}</h1></legend>
+        <label>New Question</label>
+        <input type="text" name = "new_question" id="">
+        <fieldset>
+        <input type="submit" name="add question" value="Add Question">
+    </form>

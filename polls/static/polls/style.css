@@ -1,0 +1,18 @@
+li :hover{
+    color: aqua;
+
+}
+body {
+
+    background-image: url("images/rm222batch2-mind-03.jpg");
+    font-family: verdana;
+    }
+    .abc{
+        text-align: center
+        color=red
+    }
+
+    .a :hover{
+        color: aqua;
+
+    }

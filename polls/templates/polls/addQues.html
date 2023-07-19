@@ -1,0 +1,27 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_links %}
+<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+{% endblock %}
+
+{% block page_title %}
+    New Question
+{% endblock %}
+
+{% block page_body %}
+<header>
+    <nav><a href="{% url 'polls:index' %}">Home Page</a></nav>
+</header>
+<form action="{% url 'polls:newQues' %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        {% if error_message %}<p><strong>{{error_message}}</strong></p>{% endif%}
+        <legend><h1>Add new question</h1></legend>
+        <label>New question</label>
+        <input type="text" name = "new_ques" >
+        <fieldset>
+        <input type="submit" name="add" value="Add" id="">
+    </form>
+    {% endblock %}

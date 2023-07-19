@@ -1,0 +1,9 @@
+<header>
+    <nav><a href="{% url 'polls:index' %}">Home Page</a></nav>
+</header>
+<form action="{% url 'polls:editQues' question.id %}" method="post">
+    {% csrf_token %}
+        <label>edit question</label>
+        <input type="text" name = "input" >
+        <input type="submit" value = "submit">
+    </form>
