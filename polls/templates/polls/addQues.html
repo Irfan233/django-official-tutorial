@@ -9,11 +9,9 @@
 {% block page_title %}
     New Question
 {% endblock %}
-
 {% block page_body %}
-<header>
-    <nav><a href="{% url 'polls:index' %}">Home Page</a></nav>
-</header>
+<body class="addQues">
+{% include 'polls/includes/header.html' %}
 <form action="{% url 'polls:newQues' %}" method="post">
     {% csrf_token %}
     <fieldset>
@@ -24,4 +22,5 @@
         <fieldset>
         <input type="submit" name="add" value="Add" id="">
     </form>
-    {% endblock %}
+</body>
+{% endblock %}

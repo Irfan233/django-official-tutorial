@@ -8,8 +8,8 @@
 {% block page_title %}
     Results for "{{ question.question_text }}"
 {% endblock %}
-
 {% block page_body %}
+<body class="results">
 <h1>{{ question.question_text }}</h1>
 
 <ul>
@@ -20,4 +20,5 @@
 
 <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
 <a href="{% url 'polls:reset' question.id %}">reset votes?</a>
+</body>
 {% endblock %}

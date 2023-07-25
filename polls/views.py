@@ -4,16 +4,25 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.shortcuts import get_object_or_404, render
 
 from .models import Choice, Question
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, logout, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+def index(request):
+    return render(request, "polls/index.html", {})
 
 
-class IndexView(generic.ListView):
-    template_name = "polls/index.html"
-    context_object_name = "latest_question_list"
+class HomeView(LoginRequiredMixin, generic.ListView):
+    login_url = "/polls"
+    template_name = "polls/home.html"
+    context_object_name = "question_list"
 
     def get_queryset(self):
-        """Return the last five published questions."""
         return Question.objects.order_by("-pub_date")[:5]
 
 
@@ -136,3 +145,38 @@ def deleteQues(request, id):
         new_question=Question.objects.get(id=id)
         new_question.delete()
         return render(request, 'polls/index.html', { 'new_question':new_question })
+    
+def login_user(request):
+    data = request.POST
+    user = authenticate(request, username=data['username'], password=data['password'])
+    if user is not None:
+        login(request, user)
+        return HttpResponseRedirect(reverse("polls:home"))
+    else:
+        return render(request, "polls/index.html", {
+            "login_message": "Wrong username/password",
+        })
+
+
+@login_required(login_url="/polls")
+def logout_user(request):
+    logout(request)
+    return render(request, "polls/index.html", {
+        "login_message": "Successfully logged out!",
+    })
+
+def register(request):
+    data = request.POST
+    u = User.objects.create_user(
+        username=data['username'],
+        email=data['email'],
+        password=data['password'],
+        first_name=data['fname'],
+        last_name=data['lname'],
+    )
+
+    u.save()
+
+    return render(request, "polls/index.html", {
+        "register_message": "Successfully registered, please login using your email/password now",
+    })

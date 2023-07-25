@@ -10,9 +10,8 @@
 {% endblock %}
 
 {% block page_body %}
-<header>
-    <nav><a href="{% url 'polls:index' %}">Home Page</a></nav>
-</header>
+<body class="addChoice">
+{% include 'polls/includes/header.html' %}
 <form action="{% url 'polls:newChoice' question.id %}" method="post">
 {% csrf_token %}
 <fieldset>
@@ -22,4 +21,5 @@
     <fieldset>
     <input type="submit" name="add choice" value="Add Choice">
 </form>
+</body>
 {% endblock %}

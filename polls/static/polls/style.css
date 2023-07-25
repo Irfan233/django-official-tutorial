@@ -2,11 +2,7 @@ li :hover{
     color: aqua;
 
 }
-body {
 
-    background-image: url("images/rm222batch2-mind-03.jpg");
-    font-family: verdana;
-    }
     .abc{
         text-align: center
         color=red
@@ -16,3 +12,31 @@ body {
         color: aqua;
 
     }
+body {
+    /* background-image: url(images/5.jpg); */
+    
+    &.detail{
+        background-image: url(images/1a.jpg);
+    }
+    &.index{
+        background-image: url(images/2a.jpg);
+    }
+    &.addChoice{
+        background-image: url(images/3a.jpg);
+    }
+    &.editQues{
+        background-image: url(images/4a.jpg);
+    }
+    &.addQues{
+        background-image: url(images/5a.jpg);
+    }
+    &.header{
+        background-image: url(images/6a.jpg);
+    }
+    &.results{
+        background-image: url(images/4a.jpg);
+    }
+    &.home{
+        background-image: url(images/4a.jpg);
+    }
+}
